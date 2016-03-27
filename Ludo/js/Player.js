@@ -67,8 +67,7 @@ Player.prototype.getPieces = function(game, name){
         case "red":
             for (var i = 0; i < 4; ++i){
                 
-                var piece = new Piece(game, redConfig.x[i], redConfig.y[i], redConfig.name, redConfig.imageId, redConfig.uniqueId, redConfig.isMovable, redConfig.state, redConfig.index, redConfig.isMovable, getNextGroup(), this.playerName);
-                piece.uniqueId = createUUID();
+                var piece = new Piece(game, redConfig.x[i], redConfig.y[i], redConfig.name, redConfig.imageId, this.game.getUuid(), redConfig.isMovable, redConfig.state, redConfig.index, redConfig.isMovable, getNextGroup(), this.playerName);
                 this.playerPieces.push(piece);
             }
             break;
@@ -77,7 +76,7 @@ Player.prototype.getPieces = function(game, name){
             for (var i = 0; i < 4; ++i){
                 
                    
-                var piece = new Piece(game, blueConfig.x[i], blueConfig.y[i], blueConfig.name, blueConfig.imageId, blueConfig.uniqueId, blueConfig.isMovable, blueConfig.state, blueConfig.index, blueConfig.isMovable, getNextGroup(), this.playerName); 
+                var piece = new Piece(game, blueConfig.x[i], blueConfig.y[i], blueConfig.name, blueConfig.imageId, this.game.getUuid(), blueConfig.isMovable, blueConfig.state, blueConfig.index, blueConfig.isMovable, getNextGroup(), this.playerName); 
                 piece.uniqueId = createUUID();
                 this.playerPieces.push(piece);
             } 
@@ -85,7 +84,7 @@ Player.prototype.getPieces = function(game, name){
         case "yellow": 
             for (var i = 0; i < 4; ++i){
                     
-                var piece = new Piece(game, yellowConfig.x[i], yellowConfig.y[i], yellowConfig.name, yellowConfig.imageId, yellowConfig.uniqueId, yellowConfig.isMovable, yellowConfig.state, yellowConfig.index, yellowConfig.isMovable, getNextGroup(), this.playerName);
+                var piece = new Piece(game, yellowConfig.x[i], yellowConfig.y[i], yellowConfig.name, yellowConfig.imageId, this.game.getUuid(), yellowConfig.isMovable, yellowConfig.state, yellowConfig.index, yellowConfig.isMovable, getNextGroup(), this.playerName);
                 piece.uniqueId = createUUID();
                 this.playerPieces.push(piece);
             } 
@@ -93,7 +92,7 @@ Player.prototype.getPieces = function(game, name){
         case "green":
             for (var i = 0; i < 4; ++i){
                    
-                var piece = new Piece(game, greenConfig.x[i], greenConfig.y[i], greenConfig.name, greenConfig.imageId, greenConfig.uniqueId, greenConfig.isMovable, greenConfig.state, greenConfig.index, greenConfig.isMovable, getNextGroup(), this.playerName);
+                var piece = new Piece(game, greenConfig.x[i], greenConfig.y[i], greenConfig.name, greenConfig.imageId, this.game.getUuid(), greenConfig.isMovable, greenConfig.state, greenConfig.index, greenConfig.isMovable, getNextGroup(), this.playerName);
                 piece.uniqueId = createUUID();
                 this.playerPieces.push(piece);
             }
@@ -103,11 +102,7 @@ Player.prototype.getPieces = function(game, name){
     
 };
 
-
-
 //**********************************************Move Operation*****************************************
-
-
 
 Player.prototype.play = function(){
     
@@ -834,4 +829,18 @@ Player.prototype.drawExitedPiece = function(piece, graphics){
     graphics.beginFill(graphicsPosition.color, 1);
     graphics.drawCircle(this.exitingGraphicsPositions[index], graphicsPosition.y, 30);
         
+};
+
+Player.prototype.getUuid = function(){
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("");
+    return uuid;
 };

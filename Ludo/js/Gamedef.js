@@ -1,11 +1,11 @@
 // Extended Phaser.Sprite (check out the examples Sprites -> extending sprite demo 1 & 2)
 // Added a function to animate rolling.
 
-Gamedef = function (controller) {
-    this.gameId = createUUID();
-    this.diceUniqueIds = [];
+Gamedef = function (controller, gameId) {
+    this.gameId = gameId;
+    this.diceIds = [];
     for (var i = 0; i < controller.dice.length; ++i){
-        this.diceUniqueIds.push(controller.dice[i].uniqueId);
+        this.diceIds.push({uniqueId : controller.dice[i].uniqueId, value : controller.dice[i].value()});
     }
     this.players = []; 
 };

@@ -21,23 +21,6 @@ getNextGroup = function(){
     return groups[groupIndex];
 }
 
-
-getNewDice = function(game) {
-    
-    var diceList = [];
-    var die1 = new Dice(game, 330, 390);
-    var group = game.add.group();
-    group.add(die1);
-    die1.group = group;
-    diceList.push(die1);
-    var die2 = new Dice(game, 390, 330);
-    group = game.add.group();
-    group.add(die2);
-    die2.group = group;
-    diceList.push(die2);
-    return diceList;
-};
-
     
 var redConfig = {
     

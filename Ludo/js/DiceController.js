@@ -1,6 +1,6 @@
 DiceController = function (game) {
     
-    this.dice = getNewDice(game);
+    this.dice = this.getNewDice(game);
     for (var i = 0; i < this.dice.length; ++i){
         var uuid = this.getUuid();
         this.dice[i].uniqueId = uuid;
@@ -17,21 +17,12 @@ DiceController.prototype.rollDiceActivity = function(currentPlayer, diceObject){
 };
 
 DiceController.prototype.setDiceValue = function(currentPlayer){
-    
-    switch(currentPlayer.diceObject.length)
-    {
-        case 0:
-            return false;
-        case 1:
-            this.dice[0].setCurrentPlayer(currentPlayer);
-            this.dice[0].setValue(currentPlayer.diceObject[0]);
-            return true;
-        case 2:
-            this.dice[0].setCurrentPlayer(currentPlayer);
-            this.dice[0].setValue(currentPlayer.diceObject[0]);
-            this.dice[1].setCurrentPlayer(currentPlayer);
-            this.dice[1].setValue(currentPlayer.diceObject[1]);
-            return true;
+
+    if (currentPlayer.diceObject.length > 0){
+        for (var i = 0; i < this.dice.length; ++i){
+            this.dice[i].setSavedCurrentPlayer(currentPlayer);
+        }
+        return true;
     }
     
     return false;
@@ -51,7 +42,7 @@ DiceController.prototype.consumeDie = function(uniqueId){
 
 DiceController.prototype.setDiceUniqueId = function(uniqueIds){
    for (var i = 0; i < uniqueIds.length; ++i){
-       this.dice[i].uniqueId = uniqueIds[i];
+       this.dice[i].uniqueId = uniqueIds[i].uniqueId;
    }
 };
 
@@ -128,5 +119,22 @@ DiceController.prototype.getUuid = function(){
 
     var uuid = s.join("");
     return uuid;
+};
+
+
+DiceController.prototype.getNewDice = function(game) {
+    
+    var diceList = [];
+    var die1 = new Dice(game, 330, 390);
+    var group = game.add.group();
+    group.add(die1);
+    die1.group = group;
+    diceList.push(die1);
+    var die2 = new Dice(game, 390, 330);
+    group = game.add.group();
+    group.add(die2);
+    die2.group = group;
+    diceList.push(die2);
+    return diceList;
 };
 

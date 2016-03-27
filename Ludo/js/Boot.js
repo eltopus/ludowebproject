@@ -31,6 +31,8 @@ Ludo.Boot.prototype = {
         this.load.script("BlurY", "js/queue.js");
         this.load.script("rules", "js/Rules.js");
         this.load.script("rules", "js/Action.js");
+        this.load.script("underscore", "js/underscore.js");
+        this.load.script("jquery", "js/jquery-1.12.2.min.js");
         this.load.script("gamedef", "js/Gamedef.js");
         this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
         this.load.json('save', 'js/save.json');
@@ -43,10 +45,6 @@ Ludo.Boot.prototype = {
         this.stage.disableVisibilityChange = false;
         this.game.stage.smoothed = true; 
         this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-        //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        //this.scale.minWidth = 720;
-        //this.scale.minHeight = 720;
-        //this.world.setBounds(720, 720, 800, 800);
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
         this.stage.forcePortrait = true;

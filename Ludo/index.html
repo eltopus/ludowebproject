@@ -18,6 +18,7 @@
         <script src="js/Fire.js"></script>
         <script src="js/Gamedef.js"></script>
         <script src="js/Action.js"></script>
+        <script src="js/jquery-1.12.2.min.js"></script>
         <script src="js/phaser-state-transition-plugin.min.js"></script>
         <style>
             body{
@@ -29,11 +30,12 @@
         </style>
     </head>
     <body>
+            
         <div id="gameContainer">
         </div>
         <script type="text/javascript">
             window.onload = function() {
-                var game = new Phaser.Game(900, 720, Phaser.AUTO, 'gameContainer');
+                var game = new Phaser.Game(900, 720, Phaser.Auto, 'gameContainer');
                 game.state.add('Boot', Ludo.Boot);
                 game.state.add('Preloader', Ludo.Preloader);
                 game.state.add('StartMenu', Ludo.StartMenu);

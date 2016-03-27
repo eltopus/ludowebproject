@@ -110,6 +110,17 @@ Dice.prototype.setCurrentPlayer = function(currentPlayer){
     this.player = currentPlayer;
 };
 
+Dice.prototype.setSavedCurrentPlayer = function(currentPlayer){
+    
+    for (var i = 0; i < currentPlayer.diceObject.length; ++i){
+        if (currentPlayer.diceObject[i].uniqueId == this.uniqueId){
+            this.player = currentPlayer;
+            this.setValue(currentPlayer.diceObject[i]);
+            break;
+        }
+    }
+};
+
 Dice.prototype.selectDie = function() {
     
     if (this.player != null && !this.player.hasMovingPiece()){   
@@ -159,19 +170,16 @@ Dice.prototype.setValue = function(diceObject) {
             this.frame = 0;
             this.unSelect();
             this.isPlayed = false;
-            this.uniqueId = diceObject.uniqueId;
             break;
         case 1:
             this.frame = 1;
             this.unSelect();
             this.isPlayed = false;
-            this.uniqueId = diceObject.uniqueId;
             break;
         case 2:
             this.frame = 2;
             this.unSelect();
             this.isPlayed = false;
-            this.uniqueId = diceObject.uniqueId;
             break;
         case 5:
             this.frame = 4;
@@ -182,13 +190,11 @@ Dice.prototype.setValue = function(diceObject) {
             this.frame = 5;
             this.unSelect();
             this.isPlayed = false;
-            this.uniqueId = diceObject.uniqueId;
             break;
         case 4:
             this.frame = 6;
             this.unSelect();
             this.isPlayed = false;
-            this.uniqueId = diceObject.uniqueId;
             break;
     
     }
